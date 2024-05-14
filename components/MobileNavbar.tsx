@@ -26,7 +26,7 @@ const MobileNavbar: React.FC<MobileNavProps> = ({user}) => {
             </SheetTrigger>
             <SheetContent side={'left'} className={'border-none bg-white'}>
                 <Link className={'cursor-pointer flex items-center gap-1 px-4'} href="/">
-                    <Image alt={'horizone logo'} src={'/icons/logo.svg'} width={34} height={34}/>
+                    <Image alt={'Baker\'s logo'} src={'/icons/logo.svg'} width={34} height={34}/>
                     <h1 className={'text-26 font-ibm-plex-serif font-bold text-black-1'}>{'Baker\'s Bank'}</h1>
                 </Link>
                 <div className={'mobilenav-sheet'}>
