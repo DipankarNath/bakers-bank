@@ -21,15 +21,17 @@ import {Input} from "@/components/ui/input"
 import CustomInput from "@/components/CustomInput";
 import {authFormSchema} from "@/lib/utils";
 import {Loader2} from "lucide-react";
+import {useRouter} from "next/navigation";
 
 
 const AuthForm: React.FC<{ type: string }> = ({type}) => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
+    const navigation = useRouter();
+    const formSchema = authFormSchema(type);
     // 1. Define your form.
-    const form = useForm<z.infer<typeof authFormSchema>>({
-        resolver: zodResolver(authFormSchema),
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
         defaultValues: {
             email: "",
             password: "",
@@ -37,12 +39,33 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof authFormSchema>) {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         setIsLoading(true);
-        console.log(values)
-        setIsLoading(false);
+//        console.log(values)
+
+        try {
+            if (type === 'sign-up') {
+//                const newUser = await signUp(values);
+//                setUser(newUser);
+            }
+            if (type === 'sign-in') {
+//                const user = await signIn({
+//                    email: values.email,
+//                    password: values.password,
+//                });
+
+//                if (user) {
+//                    navigation.push('/');
+//                }
+            }
+
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setIsLoading(false);
+        }
 
     }
 
@@ -67,6 +90,43 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
             ) : <>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                        {type === 'sign-up' && (
+                            <>
+                                <div className={'flex gap-4'}>
+                                    <CustomInput name={'firstName'} label={'First Name'}
+                                                 placeholder={'Enter your first name'}
+                                                 control={form.control}
+                                                 type={'text'}/>
+
+                                    <CustomInput name={'lastName'} label={'Last Name'}
+                                                 placeholder={'Enter your last name'}
+                                                 control={form.control}
+                                                 type={'text'}/>
+                                </div>
+                                <CustomInput name={'address1'} label={'Address'} placeholder={'Enter your address'}
+                                             control={form.control}
+                                             type={'text'}/>
+                                <CustomInput name={'city'} label={'City'} placeholder={'Enter your city name'}
+                                             control={form.control}
+                                             type={'text'}/>
+                                <div className={'flex gap-4'}>
+                                    <CustomInput name={'State'} label={'State'} placeholder={'Ex: CA'}
+                                                 control={form.control}
+                                                 type={'text'}/>
+                                    <CustomInput name={'postalCode'} label={'Postal Code'} placeholder={'Ex: 1234'}
+                                                 control={form.control}
+                                                 type={'text'}/>
+                                </div>
+                                <div className={'flex gap-4'}>
+                                    <CustomInput name={'dob'} label={'Date of Birth'} placeholder={'yyyy-mm-dd'}
+                                                 control={form.control}
+                                                 type={'text'}/>
+                                    <CustomInput name={'ssn'} label={'SSN'} placeholder={'Ex: 1234'}
+                                                 control={form.control}
+                                                 type={'text'}/>
+                                </div>
+                            </>
+                        )}
                         <CustomInput name={'email'} label={'Email'} placeholder={'Enter your email'}
                                      control={form.control}
                                      type={'email'}/>
