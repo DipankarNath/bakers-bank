@@ -23,6 +23,7 @@ import {authFormSchema} from "@/lib/utils";
 import {Loader2} from "lucide-react";
 import {useRouter} from "next/navigation";
 import {signIn, signUp} from "@/lib/actions/user.actions";
+import PlaidLink from "@/components/PlaidLink";
 
 
 const AuthForm: React.FC<{ type: string }> = ({type}) => {
@@ -48,7 +49,19 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
 
         try {
             if (type === 'sign-up') {
-                const newUser = await signUp(values);
+                const newUserData = {
+                    firstName: values.firstName!,
+                    lastName: values.lastName!,
+                    address1: values.address1!,
+                    city: values.city!,
+                    state: values.state!,
+                    postalCode: values.postalCode!,
+                    dateOfBirth: values.dateOfBirth!,
+                    ssn: values.ssn!,
+                    email: values.email,
+                    password: values.password,
+                };
+                const newUser = await signUp(newUserData);
                 setUser(newUser);
             }
             if (type === 'sign-in') {
@@ -87,8 +100,10 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
                 </div>
             </header>
             {user ? (
-                <div className={'flex flex-col gap-4'}>Plaid Link</div>
-            ) : <>
+                <div className={'flex flex-col gap-4'}>
+                    <PlaidLink user={user} variant={'primary'}/>
+                </div>
+            ) : (<>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         {type === 'sign-up' && (
@@ -111,7 +126,7 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
                                              control={form.control}
                                              type={'text'}/>
                                 <div className={'flex gap-4'}>
-                                    <CustomInput name={'State'} label={'State'} placeholder={'Ex: CA'}
+                                    <CustomInput name={'state'} label={'State'} placeholder={'Ex: CA'}
                                                  control={form.control}
                                                  type={'text'}/>
                                     <CustomInput name={'postalCode'} label={'Postal Code'} placeholder={'Ex: 1234'}
@@ -119,7 +134,7 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
                                                  type={'text'}/>
                                 </div>
                                 <div className={'flex gap-4'}>
-                                    <CustomInput name={'dob'} label={'Date of Birth'} placeholder={'yyyy-mm-dd'}
+                                    <CustomInput name={'dateOfBirth'} label={'Date of Birth'} placeholder={'yyyy-mm-dd'}
                                                  control={form.control}
                                                  type={'text'}/>
                                     <CustomInput name={'ssn'} label={'SSN'} placeholder={'Ex: 1234'}
@@ -152,7 +167,7 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
                         {type === 'sign-up' ? 'Sign In' : 'Sign Up'}
                     </Link>
                 </footer>
-            </>}
+            </>)}
         </section>
     );
 };
