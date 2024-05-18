@@ -2,9 +2,11 @@ import React from "react";
 import HeaderBox from "@/components/HeaderBox";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import RightSidebar from "@/components/RightSidebar";
+import {getLoggedInUser} from "@/lib/actions/user.actions";
 
-const HomePage: React.FC = () => {
-    const loggedIn = {firstName: "Dipankar", lastName: "Nath", email: 'jhondoe@mail.com'};
+const HomePage: React.FC = async () => {
+    const loggedIn = await getLoggedInUser();
+    console.log('loggedIn', loggedIn);
     return (
         <section className="home">
             <div className="home-content">
@@ -12,7 +14,7 @@ const HomePage: React.FC = () => {
                     <HeaderBox
                         type="greeting"
                         title="Welcome"
-                        user={loggedIn?.firstName || "Guest"}
+                        user={loggedIn?.name || "Guest"}
                         subtext="access and manage your account and transactions efficiently"
                     />
 

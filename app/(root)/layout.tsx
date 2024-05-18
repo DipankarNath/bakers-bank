@@ -2,9 +2,13 @@ import React from "react";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import MobileNavbar from "@/components/MobileNavbar";
+import {getLoggedInUser} from "@/lib/actions/user.actions";
+import {redirect} from "next/navigation";
 
-const Home: React.FC<{ children: React.ReactNode }> = ({children}) => {
-    const loggedIn = {firstName: "Dipankar", lastName: "Nath"};
+const Home: React.FC<{ children: React.ReactNode }> = async ({children}) => {
+    const loggedIn = await getLoggedInUser();
+
+    if (!loggedIn) redirect('/sign-in');
 
     return <main className={'flex h-screen w-full font-inter'}>
         <Sidebar user={loggedIn}/>
