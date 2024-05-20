@@ -9,6 +9,14 @@ const PlaidLink: React.FC<PlaidLinkProps> = ({user, variant}) => {
 
     const [token, setToken] = useState('');
 
+    useEffect(() => {
+        const getLinkToken = async () => {
+            const data = await createLinkToken(user);
+            setToken(data?.linkToken);
+        };
+        getLinkToken();
+    }, [user]);
+
     const onSuccess = useCallback<PlaidLinkOnSuccess>(async (public_token: string) => {
         await exchangePublicToken({publicToken: public_token, user});
         router.push('/');
@@ -19,13 +27,6 @@ const PlaidLink: React.FC<PlaidLinkProps> = ({user, variant}) => {
         onSuccess,
     };
     const {open, ready} = usePlaidLink(config);
-
-    useEffect(() => {
-        const getNewToken = async () => {
-            const data = await createLinkToken(user);
-            setToken(data?.linkToken);
-        };
-    }, [user]);
 
     return (
         <>

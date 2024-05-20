@@ -14,14 +14,14 @@ const Footer: React.FC<FooterProps> = ({user, type = 'desktop'}) => {
 
     return (<div className={'footer'}>
         <div className={cn({'footer_name': type === 'desktop', 'footer_name-mobile': type === 'mobile'})}>
-            <p className={'text-xl font-bold text-gray-700'}>{user.name}</p>
+            <p className={'text-xl font-bold text-gray-700'}>{user?.firstName[0]}</p>
         </div>
         <div className={cn({'footer_email': type === 'desktop', 'footer_email-mobile': type === 'mobile'})}>
-            <h1 className={'text-14 truncate front-semibold text-gray-700'}>{user?.name}</h1>
+            <h1 className={'text-14 truncate front-semibold text-gray-700'}>{`${user?.firstName} ${user?.lastName}`}</h1>
             <p className={'text-14 truncate front-normal text-gray-600'}>{user?.email}</p>
         </div>
         <div className={'footer_image'} onClick={handleLogout}>
-            <Image alt={'logout'} src={'/icons/logout.svg'}/>
+            <Image alt={'logout'} src={'/Icons/logout.svg'} height={20} width={20}/>
         </div>
     </div>);
 };
