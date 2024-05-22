@@ -69,7 +69,6 @@ const AuthForm: React.FC<{ type: string }> = ({type}) => {
                     email: values.email,
                     password: values.password,
                 });
-                console.log('user', user);
                 if (user) {
                     navigation.push('/');
                 }

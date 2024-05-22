@@ -2,8 +2,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import BankCard from "@/components/BankCard";
+import {countTransactionCategories} from "@/lib/utils";
+import Category from "@/components/Category";
 
 const RightSidebar: React.FC<RightSidebarProps> = ({user, banks, transactions}) => {
+    const categories: CategoryCount[] = countTransactionCategories(transactions);
 
     return (<aside className={'right-sidebar'}>
         <section className={'flex flex-col pb-8'}>
@@ -44,6 +47,16 @@ const RightSidebar: React.FC<RightSidebarProps> = ({user, banks, transactions}) 
                     )}
                 </div>
             )}
+            <div className={'flex flex-1 mt-10 flex-col gap-6'}>
+                <h2 className={'header-2'}>
+                    Top categories
+                </h2>
+                <div className={'space-y-5'}>
+                    {categories.map((catagory, index) => (
+                        <Category key={catagory.name} category={catagory}/>
+                    ))}
+                </div>
+            </div>
         </section>
     </aside>);
 };

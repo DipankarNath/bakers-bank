@@ -38,7 +38,7 @@ const HomePage: React.FC<SearchParamProps> = async ({searchParams: {id, page}}) 
                 <RecentTransactions page={currentPage} accounts={accountsData} transactions={account?.transactions}
                                     appwriteItemId={appwriteItemId}/>
             </div>
-            <RightSidebar user={loggedIn} transactions={accounts?.transaction}
+            <RightSidebar user={loggedIn} transactions={account?.transactions}
                           banks={accountsData?.slice(0, 2)}/>
         </section>
     );
