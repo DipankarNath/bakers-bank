@@ -33,10 +33,9 @@ const HomePage: React.FC<SearchParamProps> = async ({searchParams: {id, page}}) 
                         accounts={accountsData}
                         totalBanks={accounts?.totalBanks}
                         totalCurrentBalance={accounts?.totalCurrentBalance}
-                        page={currentPage}
                     />
                 </header>
-                <RecentTransactions accounts={accountsData} transactions={account?.transactions}
+                <RecentTransactions page={currentPage} accounts={accountsData} transactions={account?.transactions}
                                     appwriteItemId={appwriteItemId}/>
             </div>
             <RightSidebar user={loggedIn} transactions={accounts?.transaction}

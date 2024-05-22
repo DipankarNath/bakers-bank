@@ -7,6 +7,7 @@ import {sidebarLinks} from "@/constants";
 import {cn} from "@/lib/utils";
 import {usePathname} from "next/navigation";
 import Footer from "@/components/Footer";
+import PlaidLink from "./PlaidLink";
 
 const Sidebar: React.FC<SiderbarProps> = ({user}) => {
 
@@ -32,6 +33,7 @@ const Sidebar: React.FC<SiderbarProps> = ({user}) => {
                     </Link>
                 );
             })}
+            <PlaidLink user={user}/>
         </nav>
         <Footer user={user} type={'mobile'}/>
     </section>);

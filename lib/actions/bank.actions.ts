@@ -46,7 +46,7 @@ export const getAccounts = async ({userId}: getAccountsProps) => {
                     type: accountData.type as string,
                     subtype: accountData.subtype! as string,
                     appwriteItemId: bank.$id,
-                    sharaebleId: bank.sharableId,
+                    sharaebleId: bank.shareableId,
                 };
 
                 return account;
@@ -67,10 +67,8 @@ export const getAccounts = async ({userId}: getAccountsProps) => {
 // Get one bank account
 export const getAccount = async ({appwriteItemId}: getAccountProps) => {
     try {
-        console.log({appwriteItemId});
         // get bank from db
         const bank = await getBank({documentId: appwriteItemId});
-        console.log({bank});
         // get account info from plaid
         const accountsResponse = await plaidClient.accountsGet({
             access_token: bank.accessToken,
