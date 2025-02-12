@@ -21,7 +21,7 @@ const PlaidLink: React.FC<PlaidLinkProps> = ({user, variant}) => {
     const onSuccess = useCallback<PlaidLinkOnSuccess>(async (public_token: string) => {
         await exchangePublicToken({publicToken: public_token, user});
         router.push('/');
-    }, [user]);
+    }, [user, router]);
 
     const config: PlaidLinkOptions = {
         token,

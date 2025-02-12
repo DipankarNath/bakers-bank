@@ -9,10 +9,10 @@ import Pagination from "@/components/Pagination";
 
 const RecentTransactions: React.FC<RecentTransactionsProps> = ({accounts = [], transactions, appwriteItemId, page}) => {
     const rowsPerPage = 10;
-    const totalPages = Math.ceil(transactions.length / rowsPerPage);
+    const totalPages = Math.ceil(transactions?.length / rowsPerPage);
     const indexOfLastTransaction = page * rowsPerPage;
     const indexOfFirstTransaction = indexOfLastTransaction - rowsPerPage;
-    const currentTransaction = transactions.slice(indexOfFirstTransaction, indexOfLastTransaction);
+    const currentTransaction = transactions?.slice(indexOfFirstTransaction, indexOfLastTransaction);
 
     return (<section className={'recent-transactions'}>
         <header className={'flex items-center justify-between'}>
